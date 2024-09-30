@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>HTML + CSS</title>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v3.7.0/mapbox-gl.css" rel="stylesheet" />
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.7.0/mapbox-gl.js"></script>
+    <link rel="stylesheet" href="./style.css" />
+</head>
+
+<body>
+    <div id="map"></div>
+    <script>
+    mapboxgl.accessToken = "YOUR_API_TOKEN";
+    const map = new mapboxgl.Map({
+        container: "map", // container ID
+        style: "mapbox://styles/mapbox/standard",
+        center: [100.53356061225051, 13.84036111099947],
+        zoom: 18
+    })
+
+    map.addControl(new mapboxgl.NavigationControl());
+
+    map.on("style.load", () => {
+        map.setConfigProperty("basemap", "lightPreset", "day");
+        map.setConfigProperty("basemap", "show3dObjects", true);
+
+        new mapboxgl.Marker()
+            .setLngLat([100.53356061225051, 13.84036111099947])
+            .setPopup(
+                new mapboxgl.Popup({ offset: 25 }).setHTML(
+                    `<h3>บริษัท ชวรักษ์ จำกัด</h3><p>133 Pracha Chuen Alley, Wong Sawang, Bang Sue, Bangkok 10800</p>`
+                )
+            ).addTo(map);
+    })
+    </script>
+</body>
+
+</html>
